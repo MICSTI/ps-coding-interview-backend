@@ -7,6 +7,7 @@ import { DanceoffsController } from './danceoffs/danceoffs.controller';
 import { Robot } from './robots/robot.entity';
 import { Danceoff } from './danceoffs/danceoff.entity';
 import { RobotModule } from './robots/robots.module';
+import { DanceoffModule } from './danceoffs/danceoffs.module';
 
 @Module({
   imports: [
@@ -14,15 +15,16 @@ import { RobotModule } from './robots/robots.module';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'ps_coding_interview',
+      username: 'parkside',
+      password: 'parkside',
+      database: 'parkside',
       entities: [Robot, Danceoff],
       synchronize: true,
     }),
     RobotModule,
+    DanceoffModule,
   ],
-  controllers: [AppController, RobotsController, DanceoffsController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

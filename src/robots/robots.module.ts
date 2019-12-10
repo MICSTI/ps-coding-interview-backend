@@ -7,6 +7,7 @@ import { Robot } from './robot.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Robot])],
   providers: [RobotsService],
+  exports: [RobotsService],
   controllers: [RobotsController],
 })
 export class RobotModule {}

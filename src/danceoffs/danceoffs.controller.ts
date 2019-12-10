@@ -10,7 +10,13 @@ export class DanceoffsController {
 
   @Get()
   async findAll(): Promise<Danceoff[]> {
-    return this.danceoffsService.findAll();
+    const danceoffs = this.danceoffsService.findAll();
+
+    if (!danceoffs) {
+      return [];
+    }
+
+    return danceoffs;
   }
 
   @Post()

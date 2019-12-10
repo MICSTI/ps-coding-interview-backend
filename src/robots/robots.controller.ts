@@ -8,11 +8,23 @@ export class RobotsController {
 
   @Get()
   async findAll(): Promise<Robot[]> {
-    return this.robotsService.findAll();
+    const robots = this.robotsService.findAll();
+
+    if (!robots) {
+      return [];
+    }
+
+    return robots;
   }
 
   @Get(':id')
   async findOne(@Param() params): Promise<Robot> {
-    return this.robotsService.findOne(params.id);
+    const robot = this.robotsService.findOne(params.id);
+
+    if (!robot) {
+      return null;
+    }
+
+    return robot;
   }
 }

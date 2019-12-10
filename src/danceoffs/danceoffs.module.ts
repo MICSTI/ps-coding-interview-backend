@@ -7,6 +7,7 @@ import { Danceoff } from './danceoff.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Danceoff])],
   providers: [DanceoffsService],
-  controllers: [DanceoffsService],
+  exports: [DanceoffsService],
+  controllers: [DanceoffsController],
 })
 export class DanceoffModule {}
