@@ -10,6 +10,10 @@ export class RobotsService {
     private readonly robotsRepository: Repository<Robot>,
   ) {}
 
+  async create(robot: Robot): Promise<Robot> {
+    return this.robotsRepository.save(robot);
+  }
+
   async findAll(): Promise<Robot[]> {
     return this.robotsRepository.find();
   }

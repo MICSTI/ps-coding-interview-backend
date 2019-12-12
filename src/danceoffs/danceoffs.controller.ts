@@ -1,8 +1,13 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  BadRequestException,
+} from '@nestjs/common';
 import { CreateDanceoffDto } from './create-danceoff.dto';
 import { DanceoffsService } from './danceoffs.service';
 import { Danceoff } from './danceoff.entity';
-import { InsertResult } from 'typeorm';
 
 @Controller('danceoffs')
 export class DanceoffsController {
@@ -22,13 +27,23 @@ export class DanceoffsController {
   @Post()
   async create(
     @Body() createDanceoffDto: CreateDanceoffDto,
-  ): Promise<InsertResult> {
-    const newItem = new Danceoff();
-    newItem.dancedAt = new Date();
-    newItem.loser = createDanceoffDto.opponents.filter(
+  ): Promise<Danceoff> {
+    const newDanceoff = new Danceoff();
+    newDanceoff.dancedAt = new Date();
+
+    const loserArr = createDanceoffDto.opponents.filter(
       (item: number) => item !== createDanceoffDto.winner,
-    )[0];
-    newItem.winner = createDanceoffDto.winner;
-    return this.danceoffsService.create(newItem);
+    );
+
+    // ensure that there is exactly one loser
+    if (loserArr.length != 1) {
+      throw new BadRequestException(
+        "The winner must be present in the 'opponents' array",
+      );
+    }
+
+    newDanceoff.loser = loserArr[0];
+    newDanceoff.winner = createDanceoffDto.winner;
+    return this.danceoffsService.create(newDanceoff);
   }
 }
