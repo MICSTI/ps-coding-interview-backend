@@ -2,24 +2,28 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RobotsController } from './robots/robots.controller';
-import { DanceoffsController } from './danceoffs/danceoffs.controller';
 import { Robot } from './robots/robot.entity';
 import { Danceoff } from './danceoffs/danceoff.entity';
 import { RobotModule } from './robots/robots.module';
 import { DanceoffModule } from './danceoffs/danceoffs.module';
+import { ConfigService } from './shared/config/config.service';
+import { ConfigModule } from './shared/config/config.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'parkside',
-      password: 'parkside',
-      database: 'parkside',
-      entities: [Robot, Danceoff],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService): {} => ({
+        type: configService.get('DB_TYPE'),
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USER'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
+        entities: [Robot, Danceoff],
+        synchronize: configService.get('NODE_ENV') !== 'production',
+      }),
+      inject: [ConfigService],
     }),
     RobotModule,
     DanceoffModule,
