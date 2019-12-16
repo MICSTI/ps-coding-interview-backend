@@ -32,19 +32,30 @@ export class DanceoffsController {
   async create(
     @Body() createDanceoffDto: CreateDanceoffDto
   ): Promise<Danceoff> {
+    // ensures that the opponents array only contains distinct values
+    const opponents = [...new Set(createDanceoffDto.opponents)];
+
+    // currently, it is allowed that the opponents array contains more than
+    // two elements, but only the first robot is marked as the loser
+    if (opponents.length < 2) {
+      throw new BadRequestException(
+        "There must be at least two distinct values present in the 'opponents' array"
+      );
+    }
+
     const newDanceoff = new Danceoff();
     newDanceoff.dancedAt = new Date();
 
     const winnerId = createDanceoffDto.winner;
 
     // ensure that the winner is actually in the opponents array
-    if (!createDanceoffDto.opponents.includes(winnerId)) {
+    if (!opponents.includes(winnerId)) {
       throw new BadRequestException(
         "The winner must be present in the 'opponents' array"
       );
     }
 
-    const loserId = createDanceoffDto.opponents.find(id => id !== winnerId);
+    const loserId = opponents.find(id => id !== winnerId);
 
     // ensure that both winner and loser IDs are valid robot IDs
     if (!(await this.robotsService.findOne(winnerId))) {
