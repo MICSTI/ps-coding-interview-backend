@@ -5,30 +5,18 @@ volumes:
     driver: local
 
 services:
-  mysql:
-    image: mysql:5.7
-    volumes:
-      - ps-coding-interview:/var/lib/mysql
+  db:
+    image: postgres:9.6.16-alpine
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: parkside
-      MYSQL_USER: parkside
-      MYSQL_PASSWORD: parkside
+      POSTGRES_DB: parkside
+      POSTGRES_USER: parkside
+      POSTGRES_PASSWORD: parkside
     ports:
-      - 3306:3306
-    networks:
-      - global
-  pma:
-    image: phpmyadmin/phpmyadmin:4.8
-    links:
-      - mysql:mysql
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - 8181:80
-    environment:
-      PMA_USER: root
-      PMA_PASSWORD: root
-      PMA_HOST: mysql
-    networks:
-      - global
-networks:
-  global:
+      - 8080:8080
