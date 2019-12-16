@@ -48,11 +48,11 @@ export class DanceoffsController {
 
     // ensure that both winner and loser IDs are valid robot IDs
     if (!(await this.robotsService.findOne(winnerId))) {
-      throw new BadRequestException("No robot with the winner's ID exists");
+      throw new BadRequestException(`No robot with ID ${winnerId} exists`);
     }
 
     if (!(await this.robotsService.findOne(loserId))) {
-      throw new BadRequestException("No robot with the loser's ID exists");
+      throw new BadRequestException(`No robot with ID ${loserId} exists`);
     }
 
     newDanceoff.loser = loserId;
