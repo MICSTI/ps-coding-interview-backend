@@ -7,11 +7,15 @@ import { Danceoff } from './danceoff.entity';
 export class DanceoffsService {
   constructor(
     @InjectRepository(Danceoff)
-    private readonly danceoffsRepository: Repository<Danceoff>,
+    private readonly danceoffsRepository: Repository<Danceoff>
   ) {}
 
   async findAll(): Promise<Danceoff[]> {
-    return this.danceoffsRepository.find({ take: 100 });
+    // returns the latest 100 danceoffs
+    return this.danceoffsRepository.find({
+      order: { dancedAt: 'DESC' },
+      take: 100,
+    });
   }
 
   async create(danceoff: Danceoff): Promise<Danceoff> {
