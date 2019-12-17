@@ -39,7 +39,7 @@ export class DanceoffsController {
     // two elements, but only the first robot is marked as the loser
     if (opponents.length < 2) {
       throw new BadRequestException(
-        "There must be at least two distinct values present in the 'opponents' array"
+        "There must be at least two distinct robot ids present in the 'opponents' array"
       );
     }
 
@@ -51,20 +51,20 @@ export class DanceoffsController {
     // ensure that the winner is actually in the opponents array
     if (!opponents.includes(winnerId)) {
       throw new BadRequestException(
-        "The winner must be present in the 'opponents' array"
+        "The winning robot must be present in the 'opponents' array"
       );
     }
 
     const loserId = opponents.find(id => id !== winnerId);
 
     // ensure that both winner and loser IDs are valid robot IDs
-    if (!(await this.robotsService.findOne(winnerId))) {
-      throw new BadRequestException(`No robot with ID ${winnerId} exists`);
-    }
-
-    if (!(await this.robotsService.findOne(loserId))) {
-      throw new BadRequestException(`No robot with ID ${loserId} exists`);
-    }
+    const robotIds = [winnerId, loserId];
+    const participatingRobots = await this.robotsService.findByIds(robotIds);
+    robotIds.forEach(robotId => {
+      if (!participatingRobots.find(robot => robot.id === robotId)) {
+        throw new BadRequestException(`No robot with id ${robotId} exists`);
+      }
+    });
 
     newDanceoff.loser = loserId;
     newDanceoff.winner = createDanceoffDto.winner;

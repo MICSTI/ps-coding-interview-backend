@@ -7,7 +7,7 @@ import { Robot } from './robot.entity';
 export class RobotsService {
   constructor(
     @InjectRepository(Robot)
-    private readonly robotsRepository: Repository<Robot>,
+    private readonly robotsRepository: Repository<Robot>
   ) {}
 
   async create(robot: Robot): Promise<Robot> {
@@ -20,5 +20,9 @@ export class RobotsService {
 
   async findOne(id: number): Promise<Robot> {
     return this.robotsRepository.findOne(id);
+  }
+
+  async findByIds(ids: number[]): Promise<Robot[]> {
+    return this.robotsRepository.findByIds(ids);
   }
 }

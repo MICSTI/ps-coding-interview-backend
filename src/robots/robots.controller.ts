@@ -13,10 +13,11 @@ export class RobotsController {
 
   @Get(':id')
   async findOne(@Param() params): Promise<Robot> {
-    const robot = await this.robotsService.findOne(params.id);
+    const robotId = params.id;
+    const robot = await this.robotsService.findOne(robotId);
 
     if (!robot) {
-      throw new NotFoundException('No robot with this ID exists');
+      throw new NotFoundException(`No robot with id ${robotId} exists`);
     }
 
     return robot;
