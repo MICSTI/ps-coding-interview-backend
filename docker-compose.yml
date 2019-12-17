@@ -12,6 +12,8 @@ services:
       POSTGRES_DB: parkside
       POSTGRES_USER: parkside
       POSTGRES_PASSWORD: parkside
+    volumes:
+      - ./ops/db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - 5432:5432
 
