@@ -61,8 +61,15 @@ export class DanceoffsController {
     const robotIds = [winnerId, loserId];
     const participatingRobots = await this.robotsService.findByIds(robotIds);
     robotIds.forEach(robotId => {
-      if (!participatingRobots.find(robot => robot.id === robotId)) {
+      const robot = participatingRobots.find(robot => robot.id === robotId);
+      if (!robot) {
         throw new BadRequestException(`No robot with id ${robotId} exists`);
+      }
+
+      if (robot.outOfOrder) {
+        throw new BadRequestException(
+          `The robot '${robot.name}' is out of order and cannot participate in a danceoff`
+        );
       }
     });
 
