@@ -19,18 +19,18 @@ export class DanceoffsController {
 
   @Get()
   async findAll(): Promise<Danceoff[]> {
-    const danceoffs = this.danceoffsService.findAll();
-
-    if (!danceoffs) {
-      return [];
-    }
-
-    return danceoffs;
+    return this.danceoffsService.findAll();
   }
 
   @Post()
   async create(
     @Body() createDanceoffDto: CreateDanceoffDto
+  ): Promise<Danceoff> {
+    return this.createSingleDanceoff(createDanceoffDto);
+  }
+
+  private async createSingleDanceoff(
+    createDanceoffDto: CreateDanceoffDto
   ): Promise<Danceoff> {
     // ensures that the opponents array only contains distinct values
     const opponents = [...new Set(createDanceoffDto.opponents)];

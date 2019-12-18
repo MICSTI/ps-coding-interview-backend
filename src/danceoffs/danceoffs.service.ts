@@ -21,4 +21,8 @@ export class DanceoffsService {
   async create(danceoff: Danceoff): Promise<Danceoff> {
     return this.danceoffsRepository.save(danceoff);
   }
+
+  async createMany(danceoffs: Danceoff[]): Promise<Danceoff[]> {
+    return this.danceoffsRepository.save(danceoffs);
+  }
 }
