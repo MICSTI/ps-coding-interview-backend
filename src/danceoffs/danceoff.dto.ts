@@ -2,12 +2,11 @@ import {
   IsArray,
   IsNotEmpty,
   IsNumber,
-  ArrayContains,
   ArrayMinSize,
   ArrayMaxSize,
 } from 'class-validator';
 
-export class CreateDanceoffDto {
+export class DanceoffDto {
   @IsArray()
   @ArrayMinSize(2)
   @ArrayMaxSize(2)

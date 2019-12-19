@@ -5,10 +5,11 @@ import {
   Body,
   BadRequestException,
 } from '@nestjs/common';
-import { CreateDanceoffDto } from './create-danceoff.dto';
+import { DanceoffDto } from './danceoff.dto';
 import { DanceoffsService } from './danceoffs.service';
 import { Danceoff } from './danceoff.entity';
 import { RobotsService } from 'src/robots/robots.service';
+import { CreateDanceoffsDto } from './create-danceoffs.dto';
 
 @Controller('danceoffs')
 export class DanceoffsController {
@@ -24,13 +25,20 @@ export class DanceoffsController {
 
   @Post()
   async create(
-    @Body() createDanceoffDto: CreateDanceoffDto
-  ): Promise<Danceoff> {
-    return this.createSingleDanceoff(createDanceoffDto);
+    @Body() createDanceoffsDto: CreateDanceoffsDto
+  ): Promise<Danceoff[]> {
+    const result: Danceoff[] = [];
+
+    for (const danceoffDto of createDanceoffsDto.danceoffs) {
+      const newDanceoff = await this.createSingleDanceoff(danceoffDto);
+      result.push(newDanceoff);
+    }
+
+    return result;
   }
 
   private async createSingleDanceoff(
-    createDanceoffDto: CreateDanceoffDto
+    createDanceoffDto: DanceoffDto
   ): Promise<Danceoff> {
     // ensures that the opponents array only contains distinct values
     const opponents = [...new Set(createDanceoffDto.opponents)];
