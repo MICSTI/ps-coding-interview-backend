@@ -1,0 +1,20 @@
+# description: buildkite - base pipeline file, containing .env variables
+
+
+env:
+  PROJECT_NAME: coding-interview-api
+  BUILDER_GROUP: avengers
+  BUILDER_QUEUE: builder
+
+  DEPLOY_DOMAIN: qa.parkside.at
+  BRANCH_FQDN: ??
+  K8S_CONFIG_FILE: config-rancher.orbit
+  DOCKER_BUILDKIT: '1'
+  REGISTRY_FQDN: harbor.parkside.at/ci
+
+  IMG_NODE: ??
+  IMG_NGINX: ??
+  IMG_DB: ??
+  IMG_WORKSPACE: ??
+
+steps:

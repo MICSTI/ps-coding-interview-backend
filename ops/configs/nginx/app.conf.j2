@@ -1,0 +1,14 @@
+upstream api {
+  server 127.0.0.1:3000;
+}
+
+server {
+  listen 80;
+  root /usr/share/nginx/html;
+  index index.html index.htm;
+  etag off;
+
+  location /api {
+    proxy_pass http://api;
+  }
+}
