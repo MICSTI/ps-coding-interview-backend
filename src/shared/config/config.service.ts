@@ -6,7 +6,7 @@ export class ConfigService {
   private readonly envConfig: Record<string, string>;
 
   constructor(filePath: string) {
-    this.envConfig = dotenv.parse(fs.readFileSync(filePath));
+    this.envConfig = {};
 
     this.envConfig['NODE_ENV'] = process.env.NODE_ENV;
 
