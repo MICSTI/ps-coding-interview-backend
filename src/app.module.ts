@@ -9,12 +9,14 @@ import { DanceoffModule } from './danceoffs/danceoffs.module';
 import { ConfigService } from './shared/config/config.service';
 import { ConfigModule } from './shared/config/config.module';
 
+import * as PostgressConnectionStringParser from 'pg-connection-string';
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService): {} => ({
-        type: configService.get('DB_TYPE'),
+        type: 'postgres',
         host: configService.get('DB_HOST'),
         port: configService.get('DB_PORT'),
         username: configService.get('DB_USER'),
