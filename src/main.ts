@@ -13,13 +13,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
-  const apiBasePath = configService.get('API_BASE_PATH');
-  if (!apiBasePath) {
-    throw new InternalServerErrorException(
-      `environment variable API_BASE_PATH could not be resolved`
-    );
-  }
-  app.setGlobalPrefix(apiBasePath);
+  app.setGlobalPrefix('api');
 
   const port = process.env.PORT || 3000;
   await app.listen(port);

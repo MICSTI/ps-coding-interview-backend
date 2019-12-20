@@ -2418,7 +2418,7 @@
         "signature": "2608cfd623840916e664e68c3dc5eb4347ccae822f808d899bf00e73cbab2bfe"
       },
       "../src/main.ts": {
-        "version": "3173dc04382797ce62f074c9b34cc3c26fb25508de26600ead2b62f04a6fce3a",
+        "version": "9a070e09f2b0e26ce476d2fb6e15a40ee8c2258c62b38c292c1060e821559154",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "../src/robots/create-robot.dto.ts": {
