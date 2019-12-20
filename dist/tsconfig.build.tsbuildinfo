@@ -2278,7 +2278,7 @@
         "signature": "571d0c35f7e442045010e45c8cbb330d758983890fc8f4a05b6d591cba584a22"
       },
       "../src/shared/config/config.service.ts": {
-        "version": "46a4cb7c526f357a1095bf1070ae3d449e8769baa0f357859a1a53dab35ca1b1",
+        "version": "d991db5c9f4c467daa56a58ed875c8029613de243a295aea506b0a72e7b1eb13",
         "signature": "dea784364101dba12f9ca72ef58b2fa4cc76309d1c6ab734f68439248a5b7553"
       },
       "../src/shared/config/config.module.ts": {

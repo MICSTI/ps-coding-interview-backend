@@ -1,11 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv = require("dotenv");
-const fs = require("fs");
 const PostgressConnectionStringParser = require("pg-connection-string");
 class ConfigService {
     constructor(filePath) {
-        this.envConfig = dotenv.parse(fs.readFileSync(filePath));
+        this.envConfig = {};
         this.envConfig['NODE_ENV'] = process.env.NODE_ENV;
         const databaseUrl = process.env.DATABASE_URL;
         const connectionOptions = PostgressConnectionStringParser.parse(databaseUrl);
